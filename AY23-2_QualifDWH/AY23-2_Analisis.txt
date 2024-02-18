@@ -1,0 +1,128 @@
+AY23-2 Qualif DWH
+
+===============
+| Measurement |
+===============
+1. Sales Transaction
+	- Total Sales Earning = SUM(Quantity * MedicineSellingPrice)
+	- Total Medicine Sold = SUM(Quantity)
+
+2. Purchase Transaction
+	- Total Purchase Cost 	   = SUM(Quantity * MedicineBuyingPrice)
+	- Total Medicine Purchased = SUM(Quantity)
+
+3. Subscription Transaction
+	- Total Subscription Earning = SUM(BenefitPrice)
+	- Subscriber Count	     = COUNT(SubscriptionID)
+
+4. Service Transaction
+	- Total Service Earning = SUM(Quantity * TreatmentPrice)
+	- Number Of Doctor 	= COUNT(DoctorID)
+
+=============
+| Dimension |
+=============
+1. MedicineDimension
+	- MedicineCode		-> Fixed
+	- MedicineID		-> Fixed
+	- MedicineName		-> Fixed
+	- MedicineSellingPrice	-> Historical
+	- MedicineBuyingPrice	-> Historical
+	- MedicineExpiredDate	-> Fixed
+	- ValidFrom
+	- ValidTo
+
+2. DoctorDimension
+	- DoctorCode		-> Fixed
+	- DoctorID		-> Fixed
+	- DoctorName		-> Fixed
+	- DoctorDOB		-> Fixed
+	- DoctorSalary		-> Historical
+	- DoctorAddress		-> Changing
+	- ValidFrom
+	- ValidTo
+
+3. StaffDimension
+	- StaffCode		-> Fixed
+	- StaffID		-> Fixed
+	- StaffName		-> Fixed
+	- StaffDOB		-> Fixed
+	- StaffSalary		-> Historical
+	- StaffAddress		-> Changing
+	- ValidFrom
+	- ValidTo
+
+4. CustomerDimension
+	- CustomerCode		-> Fixed
+	- CustomerID		-> Fixed
+	- CustomerName		-> Fixed
+	- CustomerAddress	-> Changing
+	- CustomerGender	-> Derived (Male, Female) -> (M, F)
+
+5. BenefitDimension
+	- BenefitCode		-> Fixed
+	- BenefitID		-> Fixed
+	- BenefitName		-> Fixed
+	- BenefitPrice		-> Historical
+	- ValidFrom		
+	- ValidTo
+
+6. TreatmentDimension	
+	- TreatmentCode		-> Fixed
+	- TreatmentID		-> Fixed
+	- TreatmentName		-> Fixed
+	- TreatmentPrice	-> Historical
+	- ValidFrom
+	- ValidTo
+
+7. DistributorDimension
+	- DistributorCode	-> Fixed
+	- DistributorID		-> Fixed
+	- DistributorName	-> Fixed
+	- DistributorAddress	-> Changing
+	- DistributorPhone	-> Changing
+
+8. TimeDimension
+	- TimeCode
+	- Date
+	- Month
+	- Quarter
+	- Year
+
+========
+| Fact |
+========
+1. SalesFact
+	- TimeCode
+	- MedicineCode
+	- StaffCode
+	- CustomerCode
+	- Total Sales Earning = SUM(Quantity * MedicineSellingPrice)
+	- Total Medicine Sold = SUM(Quantity)
+
+2. PurchaseFact
+	- TimeCode
+	- MedicineCode
+	- StaffCode
+	- DistributorCode
+	- Total Purchase Cost 	   = SUM(Quantity * MedicineBuyingPrice)
+	- Total Medicine Purchased = SUM(Quantity)
+
+3. SubscriptionFact
+	- TimeCode
+	- CustomerCode
+	- StaffCode
+	- BenefitCode
+	- Total Subscription Earning = SUM(BenefitPrice)
+	- Subscriber Count	     = COUNT(SubscriptionID)
+
+4. ServiceFact
+	- TimeCode
+	- CustomerCode
+	- TreatmentCode
+	- DoctorCode
+	- Total Service Earning = SUM(Quantity * TreatmentPrice)
+	- Number Of Doctor 	= COUNT(DoctorID)
+	
+	
+
